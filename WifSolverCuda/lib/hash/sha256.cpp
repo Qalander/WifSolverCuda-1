@@ -17,6 +17,15 @@
 
 #include <string.h>
 #include "sha256.h"
+#include <cstdint>
+
+#ifdef _WIN32
+#include <cstdlib>
+#define WRITEBE32(ptr,x) *((uint32_t *)(ptr)) = _byteswap_ulong(x)
+#else
+#include <byteswap.h>
+#define WRITEBE32(ptr,x) *((uint32_t *)(ptr)) = bswap_32(x)
+#endif
 
 #define BSWAP
 
